@@ -32,4 +32,19 @@ export class Entity {
 
         return previousHp - this.hp;
     }
+
+    heal(amount) {
+        if (typoeof amount !== "number" || Number.isNaN(amount) || amount < 0) {
+            throw new Error("Invalid heal amount: must be a non-negative number.");
+        }
+
+        if (!this.isAlive) {
+            return 0;
+        }
+
+        const previousHp = this.hp;
+        this.hp = Math.min(this.maxHp, this.hp + amount);
+
+        return this.hp - previousHp;
+    }
 }
